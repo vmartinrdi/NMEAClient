@@ -46,6 +46,7 @@ namespace NMEAClient
 				connectDone.WaitOne();
 
 				// Send test data to the remote device.
+                dataString = "Initial connection: " + dataString;
 				Send(client, dataString);
 				sendDone.WaitOne();
 

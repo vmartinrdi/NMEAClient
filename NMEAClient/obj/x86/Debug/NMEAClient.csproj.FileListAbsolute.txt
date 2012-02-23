@@ -3,3 +3,8 @@ C:\Users\virtuesplea\Documents\MXAK\NMEAClient\NMEAClient\bin\Debug\NMEAClient.p
 C:\Users\virtuesplea\Documents\MXAK\NMEAClient\NMEAClient\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\virtuesplea\Documents\MXAK\NMEAClient\NMEAClient\obj\x86\Debug\NMEAClient.exe
 C:\Users\virtuesplea\Documents\MXAK\NMEAClient\NMEAClient\obj\x86\Debug\NMEAClient.pdb
+C:\Users\vmartin\Documents\Projects\MXAK\NMEAClient\NMEAClient\obj\x86\Debug\NMEAClient.exe
+C:\Users\vmartin\Documents\Projects\MXAK\NMEAClient\NMEAClient\obj\x86\Debug\NMEAClient.pdb
+C:\Users\vmartin\Documents\Projects\MXAK\NMEAClient\NMEAClient\bin\Debug\NMEAClient.exe
+C:\Users\vmartin\Documents\Projects\MXAK\NMEAClient\NMEAClient\bin\Debug\NMEAClient.pdb
+C:\Users\vmartin\Documents\Projects\MXAK\NMEAClient\NMEAClient\obj\x86\Debug\ResolveAssemblyReference.cache
