@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
+using System.IO;
 
 namespace NMEAClient
 {
@@ -21,18 +22,22 @@ namespace NMEAClient
 
 		// The response from the remote device.
 		private static String response = String.Empty;
+        //private static StreamWriter writeTo;
 
 		private static void StartClient(string dataString)
 		{
 			// Connect to a remote device.
 			try
 			{
+                //writeTo = new StreamWriter(@"C:\nmeaTestFile.txt", false);
+                
 				// Establish the remote endpoint for the socket.
 				// The name of the 
 				// remote device is "host.contoso.com".
 				//IPHostEntry ipHostInfo = Dns.Resolve("host.contoso.com");
 				IPHostEntry ipHostInfo = new IPHostEntry();
-				ipHostInfo.AddressList = new IPAddress[] { new IPAddress(new Byte[] { 127, 0, 0, 1 }) };
+				//ipHostInfo.AddressList = new IPAddress[] { new IPAddress(new Byte[] { 127, 0, 0, 1 }) };
+                ipHostInfo.AddressList = new IPAddress[] { new IPAddress(new Byte[] { 192, 168, 70, 128 }) };
 				IPAddress ipAddress = ipHostInfo.AddressList[0];
 				IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
@@ -46,19 +51,23 @@ namespace NMEAClient
 				connectDone.WaitOne();
 
 				// Send test data to the remote device.
-                dataString = "Initial connection: " + dataString;
+                sendDone.Reset();
 				Send(client, dataString);
 				sendDone.WaitOne();
 
-				// Receive the response from the remote device.
-				while (true)
-				{
-					Receive(client);
-					receiveDone.WaitOne();
+                receiveDone.Reset();
+                Receive(client);
+                receiveDone.WaitOne();
 
-					// Write the response to the console.
-					Console.WriteLine("Response received : {0}\r\n", response);
-				}
+                //// Receive the response from the remote device.
+                //while (true)
+                //{
+                //    Receive(client);
+                //    receiveDone.WaitOne();
+
+                //    // Write the response to the console.
+                //    Console.WriteLine("Response received : {0}\r\n", response);
+                //}
 
 				// Release the socket.
 				client.Shutdown(SocketShutdown.Both);
@@ -83,6 +92,8 @@ namespace NMEAClient
 
 				Console.WriteLine("Socket connected to {0}",
 					client.RemoteEndPoint.ToString());
+                //writeTo.WriteLine("Socket connected to {0}",
+                //    client.RemoteEndPoint.ToString());
 
 				// Signal that the connection has been made.
 				connectDone.Set();
@@ -125,8 +136,10 @@ namespace NMEAClient
 
 				if (bytesRead > 0)
 				{
-					// There might be more data, so store the data received so far.
-					state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                    //// There might be more data, so store the data received so far.
+                    //state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                    Console.WriteLine(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                    //writeTo.WriteLine(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
 
 					// Get the rest of the data.
 					client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
@@ -135,10 +148,11 @@ namespace NMEAClient
 				else
 				{
 					// All the data has arrived; put it in response.
-					if (state.sb.Length > 1)
-					{
-						response = state.sb.ToString();
-					}
+                    //if (state.sb.Length > 1)
+                    //{
+                    //    //response = state.sb.ToString();
+                    //    Console.WriteLine("Received: " + Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                    //}
 					// Signal that all bytes have been received.
 					receiveDone.Set();
 				}
