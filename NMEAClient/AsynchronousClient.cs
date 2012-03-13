@@ -10,7 +10,6 @@ namespace NMEAClient
 	public class AsynchronousClient
 	{
 		// The port number for the remote device.
-		private const int port = 10116;
 
 		// ManualResetEvent instances signal completion.
 		private static ManualResetEvent connectDone =
@@ -29,6 +28,8 @@ namespace NMEAClient
 			// Connect to a remote device.
 			try
 			{
+                int port = 10116;
+
                 //writeTo = new StreamWriter(@"C:\nmeaTestFile.txt", false);
                 
 				// Establish the remote endpoint for the socket.
@@ -37,7 +38,9 @@ namespace NMEAClient
 				//IPHostEntry ipHostInfo = Dns.Resolve("host.contoso.com");
 				IPHostEntry ipHostInfo = new IPHostEntry();
 				//ipHostInfo.AddressList = new IPAddress[] { new IPAddress(new Byte[] { 127, 0, 0, 1 }) };
-                ipHostInfo.AddressList = new IPAddress[] { new IPAddress(new Byte[] { 192, 168, 70, 128 }) };
+                //ipHostInfo.AddressList = new IPAddress[] { new IPAddress(new Byte[] { 192, 168, 70, 128 }) };
+                ipHostInfo.AddressList = new IPAddress[] { new IPAddress(new Byte[] { 216, 67, 61, 42 }) };
+                port = 2114;
 				IPAddress ipAddress = ipHostInfo.AddressList[0];
 				IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
